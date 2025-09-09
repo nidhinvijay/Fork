@@ -55,11 +55,27 @@ patch "youtube-music-beta-arm64-v8a" "anddea" "inotia"
 # patch "youtube-music-beta-x86" "anddea" "inotia"
 
 # Patch Spotjfy Arm64-v8a
+# Patch Spotify Arm64-v8a (try latest, fallback to stable)
 get_patches_key "Spotjfy-anddea"
 j="i"
-version="9.0.44.478" #https://github.com/ReVanced/revanced-patches/issues/4958#issuecomment-2883387940
-get_apkpure "com.spot"$j"fy.music" "spotjfy-beta-arm64-v8a" "spot"$j"fy-music-and-podcasts-for-android/com.spot"$j"fy.music"
-patch "spotjfy-beta-arm64-v8a" "anddea"
+
+# Try to patch latest first
+if get_apkpure "com.spot"$j"fy.music" "spotjfy-beta-arm64-v8a" "spot"$j"fy-music-and-podcasts-for-android/com.spot"$j"fy.music"; then
+    if patch "spotjfy-beta-arm64-v8a" "anddea"; then
+        echo "✅ Spotify patched successfully with latest version"
+    else
+        echo "⚠️ Latest Spotify patch failed, falling back to 9.0.44.478"
+        version="9.0.44.478"
+        get_apkpure "com.spot"$j"fy.music" "spotjfy-beta-arm64-v8a" "spot"$j"fy-music-and-podcasts-for-android/com.spot"$j"fy.music"
+        patch "spotjfy-beta-arm64-v8a" "anddea"
+    fi
+else
+    echo "⚠️ Failed to fetch latest Spotify, trying fallback version 9.0.44.478"
+    version="9.0.44.478"
+    get_apkpure "com.spot"$j"fy.music" "spotjfy-beta-arm64-v8a" "spot"$j"fy-music-and-podcasts-for-android/com.spot"$j"fy.music"
+    patch "spotjfy-beta-arm64-v8a" "anddea"
+fi
+
 
 # # Patch YouTube Lite Arm64-v8a:
 # get_patches_key "youtube-rve-anddea"
