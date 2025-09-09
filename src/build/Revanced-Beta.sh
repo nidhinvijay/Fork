@@ -65,14 +65,29 @@ revanced_dl(){
 	
 }
 7() {
-	revanced_dl
-	# Patch Spotjfy Arm64-v8a
-	get_patches_key "Spotjfy-revanced"
-	j="i"
- 	version="9.0.64.107" #https://github.com/ReVanced/revanced-patches/issues/5537#issuecomment-3134402120
-	get_apkpure "com.spot"$j"fy.music" "spotjfy-beta-arm64-v8a" "spot"$j"fy-music-and-podcasts-for-android/com.spot"$j"fy.music"
-	patch "spotjfy-beta-arm64-v8a" "revanced"
+    revanced_dl
+    # Patch Spotify Arm64-v8a (try latest first, fallback if needed)
+    get_patches_key "Spotjfy-revanced"
+    j="i"
+
+    echo "🎵 Trying Spotify latest version..."
+    if get_apkpure "com.spot"$j"fy.music" "spotjfy-beta-arm64-v8a" "spot"$j"fy-music-and-podcasts-for-android/com.spot"$j"fy.music"; then
+        if patch "spotjfy-beta-arm64-v8a" "revanced"; then
+            echo "✅ Spotify patched successfully with latest version"
+        else
+            echo "⚠️ Latest Spotify patch failed, falling back to 9.0.64.107"
+            version="9.0.64.107"
+            get_apkpure "com.spot"$j"fy.music" "spotjfy-beta-arm64-v8a" "spot"$j"fy-music-and-podcasts-for-android/com.spot"$j"fy.music"
+            patch "spotjfy-beta-arm64-v8a" "revanced"
+        fi
+    else
+        echo "⚠️ Failed to fetch latest Spotify, trying fallback version 9.0.64.107"
+        version="9.0.64.107"
+        get_apkpure "com.spot"$j"fy.music" "spotjfy-beta-arm64-v8a" "spot"$j"fy-music-and-podcasts-for-android/com.spot"$j"fy.music"
+        patch "spotjfy-beta-arm64-v8a" "revanced"
+    fi
 }
+
 case "$1" in
     1)
         1
