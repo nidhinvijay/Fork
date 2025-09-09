@@ -12,6 +12,7 @@ dl_gh "revanced-patches revanced-cli" "inotia00" "prerelease"
 # patch "youtube-beta" "revanced-extended" "inotia"
 # Patch Youtube Arm64-v8a
 get_patches_key "youtube-revanced-extended"
+get_apk "com.google.android.youtube" "youtube-beta" "youtube" "google-inc/youtube/youtube" "Bundle_extract"
 split_editor "youtube-beta" "youtube-beta-arm64-v8a" "exclude" "split_config.armeabi_v7a split_config.x86 split_config.x86_64"
 patch "youtube-beta-arm64-v8a" "revanced-extended" "inotia"
 # # Patch Youtube Armeabi-v7a
