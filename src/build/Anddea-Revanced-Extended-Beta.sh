@@ -15,7 +15,7 @@ patch "youtube-beta" "anddea" "inotia"
 get_patches_key "youtube-rve-anddea"
 get_apk "com.google.android.youtube" "youtube-beta" "youtube" "google-inc/youtube/youtube" "Bundle_extract"
 split_editor "youtube-beta" "youtube-beta-arm64-v8a" "exclude" "split_config.armeabi_v7a split_config.x86 split_config.x86_64"
-patch "youtube-beta" "anddea" "inotia"
+patch "youtube-beta-arm64-v8a" "anddea" "inotia"
 # # Patch Youtube Armeabi-v7a
 # get_patches_key "youtube-rve-anddea"
 # split_editor "youtube-beta" "youtube-beta-armeabi-v7a" "exclude" "split_config.arm64_v8a split_config.x86 split_config.x86_64"
